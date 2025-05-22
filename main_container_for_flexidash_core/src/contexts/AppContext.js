@@ -123,10 +123,14 @@ export const AppProvider = ({ children }) => {
   
   // Apply theme to document
   useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add('dark-theme');
-    } else {
-      document.body.classList.remove('dark-theme');
+    try {
+      if (isDarkMode) {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+    } catch (error) {
+      console.error('Error applying theme:', error);
     }
   }, [isDarkMode]);
   
