@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppContext } from '../contexts/AppContext';
 import '../styles/MainContainer.css';
 
 // PUBLIC_INTERFACE
@@ -6,9 +7,11 @@ import '../styles/MainContainer.css';
  * Sidebar component for the FlexiDash main container
  * Provides navigation and collapsible functionality with enhanced styling
  */
-function Sidebar({ isOpen, toggleSidebar }) {
+function Sidebar() {
+  const { sidebarOpen, toggleSidebar, isDarkMode, toggleTheme } = useAppContext();
+  
   return (
-    <div className={`flexidash-sidebar ${isOpen ? 'open' : 'closed'}`}>
+    <div className={`flexidash-sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-header">
         <div className="logo">
           <div className="logo-symbol">
@@ -18,10 +21,10 @@ function Sidebar({ isOpen, toggleSidebar }) {
               <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <span className={`logo-text ${!isOpen ? 'hidden' : ''}`}>FlexiDash</span>
+          <span className={`logo-text ${!sidebarOpen ? 'hidden' : ''}`}>FlexiDash</span>
         </div>
         <button className="sidebar-toggle" onClick={toggleSidebar} aria-label="Toggle sidebar">
-          {isOpen ? (
+          {sidebarOpen ? (
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
