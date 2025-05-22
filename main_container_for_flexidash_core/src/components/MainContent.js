@@ -1,4 +1,6 @@
 import React from 'react';
+import { useAppContext } from '../contexts/AppContext';
+import Widget from './Widget';
 import '../styles/MainContainer.css';
 
 // PUBLIC_INTERFACE
@@ -7,16 +9,39 @@ import '../styles/MainContainer.css';
  * Primary content area that hosts dashboard widgets and content with enhanced styling
  */
 function MainContent({ children }) {
+  const { widgets, searchQuery, filteredContent, resetWidgetLayout } = useAppContext();
+  
+  // Get widgets to display based on search results or all widgets
+  const displayWidgets = filteredContent || widgets.filter(widget => widget.visible);
+
   return (
     <main className="flexidash-main-content">
       <div className="page-title">
-        <h1>Dashboard</h1>
-        <div className="breadcrumb">
-          <span>Home</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span>Dashboard</span>
+        <div className="title-section">
+          <h1>Dashboard</h1>
+          <div className="breadcrumb">
+            <span>Home</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span>Dashboard</span>
+          </div>
+        </div>
+        
+        <div className="dashboard-actions">
+          {searchQuery && filteredContent && (
+            <div className="search-results-info">
+              Showing {filteredContent.length} result{filteredContent.length !== 1 ? 's' : ''} for "{searchQuery}"
+            </div>
+          )}
+          <button className="btn btn-secondary" onClick={resetWidgetLayout}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23 4v6h-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M1 20v-6h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Reset Layout
+          </button>
         </div>
       </div>
       
@@ -24,84 +49,31 @@ function MainContent({ children }) {
         {children || (
           <div className="placeholder-content">
             <div className="dashboard-grid">
-              {/* Overview widget */}
-              <div className="dashboard-widget wide">
-                <div className="widget-header">
-                  <h3>Overview</h3>
-                  <div className="widget-controls">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="currentColor"/>
-                      <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" fill="currentColor"/>
-                      <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" fill="currentColor"/>
-                    </svg>
-                  </div>
+              {displayWidgets.length > 0 ? (
+                displayWidgets.map((widget) => (
+                  <Widget
+                    key={widget.id}
+                    id={widget.id}
+                    title={widget.title}
+                    type={widget.type}
+                  >
+                    {widget.content}
+                  </Widget>
+                ))
+              ) : searchQuery ? (
+                <div className="no-results">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <h3>No results found</h3>
+                  <p>No widgets match your search criteria.</p>
                 </div>
-                <div className="widget-content">
-                  <p>Welcome to FlexiDash Core. This is a placeholder for your dashboard content.</p>
+              ) : (
+                <div className="no-widgets">
+                  <p>All widgets have been closed. Click "Reset Layout" to restore.</p>
                 </div>
-              </div>
-              
-              {/* Statistics widget */}
-              <div className="dashboard-widget">
-                <div className="widget-header">
-                  <h3>Statistics</h3>
-                  <div className="widget-controls">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="currentColor"/>
-                      <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" fill="currentColor"/>
-                      <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" fill="currentColor"/>
-                    </svg>
-                  </div>
-                </div>
-                <div className="widget-content">
-                  <div className="stats-item">
-                    <div className="stats-label">Users</div>
-                    <div className="stats-value">1,234</div>
-                  </div>
-                  <div className="stats-item">
-                    <div className="stats-label">Revenue</div>
-                    <div className="stats-value">$5,678</div>
-                  </div>
-                  <div className="stats-item">
-                    <div className="stats-label">Growth</div>
-                    <div className="stats-value">+12.5%</div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Activity widget */}
-              <div className="dashboard-widget">
-                <div className="widget-header">
-                  <h3>Activity</h3>
-                  <div className="widget-controls">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="currentColor"/>
-                      <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" fill="currentColor"/>
-                      <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" fill="currentColor"/>
-                    </svg>
-                  </div>
-                </div>
-                <div className="widget-content">
-                  <p>Recent activity will appear here.</p>
-                </div>
-              </div>
-              
-              {/* Tasks widget */}
-              <div className="dashboard-widget">
-                <div className="widget-header">
-                  <h3>Tasks</h3>
-                  <div className="widget-controls">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" fill="currentColor"/>
-                      <path d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z" fill="currentColor"/>
-                      <path d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z" fill="currentColor"/>
-                    </svg>
-                  </div>
-                </div>
-                <div className="widget-content">
-                  <p>Your tasks will appear here.</p>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         )}
