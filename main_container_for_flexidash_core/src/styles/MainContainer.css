@@ -1,5 +1,79 @@
 /* FlexiDash Container Styles */
 
+/* Dark Mode Styles */
+body.dark-theme {
+  background-color: var(--neutral-900);
+  color: var(--text-white);
+}
+
+body.dark-theme .flexidash-main {
+  background-color: var(--neutral-800);
+}
+
+body.dark-theme .flexidash-header,
+body.dark-theme .flexidash-footer {
+  background-color: var(--neutral-900);
+  color: var(--text-white);
+  border-color: var(--neutral-700);
+}
+
+body.dark-theme .flexidash-main-content {
+  background-color: var(--neutral-800);
+}
+
+body.dark-theme .content-wrapper {
+  background-color: var(--neutral-900);
+  border: 1px solid var(--neutral-700);
+}
+
+body.dark-theme .dashboard-widget {
+  background-color: var(--neutral-900);
+  border-color: var(--neutral-700);
+}
+
+body.dark-theme .widget-header {
+  background-color: var(--neutral-800);
+  border-color: var(--neutral-700);
+}
+
+body.dark-theme .widget-header h3 {
+  color: var(--text-white);
+}
+
+body.dark-theme .search-input {
+  background-color: var(--neutral-800);
+  border-color: var(--neutral-700);
+  color: var(--text-white);
+}
+
+body.dark-theme .search-button {
+  color: var(--neutral-400);
+}
+
+body.dark-theme .page-title h1 {
+  color: var(--text-white);
+}
+
+body.dark-theme .stats-label {
+  color: var(--neutral-400);
+}
+
+body.dark-theme .stats-value {
+  color: var(--text-white);
+}
+
+body.dark-theme .footer-links a {
+  color: var(--neutral-400);
+}
+
+body.dark-theme .user-name {
+  color: var(--text-white);
+}
+
+body.dark-theme .breadcrumb {
+  color: var(--neutral-500);
+}
+
 /* Main Container Layout */
 .flexidash-container {
   display: flex;
