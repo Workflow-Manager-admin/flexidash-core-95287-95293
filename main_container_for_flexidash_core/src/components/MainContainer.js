@@ -1,7 +1,7 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import MainContent from './MainContent';
 import Footer from './Footer';
 import { useAppContext } from '../contexts/AppContext';
 import '../styles/MainContainer.css';
@@ -12,7 +12,7 @@ import '../styles/MainContainer.css';
  * Provides a flexible layout with sidebar, header, main content, and footer
  * Manages responsive states and layout adjustments
  */
-function MainContainer({ children }) {
+function MainContainer() {
   const { sidebarOpen, isDarkMode } = useAppContext();
   
   return (
@@ -21,9 +21,7 @@ function MainContainer({ children }) {
       
       <div className="flexidash-main">
         <Header />
-        <MainContent>
-          {children}
-        </MainContent>
+        <Outlet />
         <Footer />
       </div>
     </div>
