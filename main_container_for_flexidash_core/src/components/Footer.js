@@ -4,7 +4,7 @@ import '../styles/MainContainer.css';
 // PUBLIC_INTERFACE
 /**
  * Footer component for the FlexiDash main container
- * Displays copyright information and links
+ * Displays copyright information and links with enhanced styling
  */
 function Footer() {
   const currentYear = new Date().getFullYear();
