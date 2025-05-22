@@ -13,10 +13,10 @@ import '../styles/MainContainer.css';
  * Manages responsive states and layout adjustments
  */
 function MainContainer({ children }) {
-  const { sidebarOpen } = useAppContext();
+  const { sidebarOpen, isDarkMode } = useAppContext();
   
   return (
-    <div className={`flexidash-container ${sidebarOpen ? 'sidebar-expanded' : 'sidebar-collapsed'}`}>
+    <div className={`flexidash-container ${sidebarOpen ? 'sidebar-expanded' : 'sidebar-collapsed'} ${isDarkMode ? 'dark-theme' : ''}`}>
       <Sidebar />
       
       <div className="flexidash-main">
