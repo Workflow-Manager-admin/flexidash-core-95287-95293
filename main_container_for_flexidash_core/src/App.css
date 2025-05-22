@@ -27,6 +27,16 @@
   --accent-purple: #805ad5;
   --accent-teal: #319795;
 
+  /* Theme Variables - Light Mode (Default) */
+  --bg-primary: var(--neutral-50);
+  --bg-secondary: white;
+  --bg-tertiary: var(--neutral-100);
+  --text-primary: var(--neutral-800);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary: var(--neutral-500);
+  --border-primary: var(--neutral-200);
+  --border-secondary: var(--neutral-100);
+  
   /* Legacy Variable Names (for compatibility) */
   --kavia-orange: var(--primary-300);
   --kavia-dark: var(--neutral-900);
@@ -39,6 +49,24 @@
   --text-medium: var(--neutral-600);
   --text-light: var(--neutral-400);
   --text-white: #ffffff;
+}
+
+/* Dark Theme Variables */
+body.dark-theme {
+  --bg-primary: var(--neutral-800);
+  --bg-secondary: var(--neutral-900);
+  --bg-tertiary: var(--neutral-700);
+  --text-primary: var(--text-white);
+  --text-secondary: var(--neutral-300);
+  --text-tertiary: var(--neutral-500);
+  --border-primary: var(--neutral-700);
+  --border-secondary: var(--neutral-800);
+}
+
+/* Theme Transition */
+body {
+  transition: background-color var(--transition-normal),
+              color var(--transition-normal);
 
   /* Spacing Scale */
   --space-xs: 4px;
