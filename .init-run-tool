@@ -1,0 +1,4 @@
+{
+    "command": "PORT=<port> BROWSER=none npm start",
+    "working_directory": "/home/kavia/workspace/code-generation/flexidash-core-95287-95293/main_container_for_flexidash_core"
+}
