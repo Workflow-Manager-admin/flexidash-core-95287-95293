@@ -48,8 +48,8 @@ function Widget({ id, title, type = 'normal', children, draggable = true }) {
         <div className="widget-content">
           {children.map((item, index) => (
             <div className="stats-item" key={index}>
-              <div className="stats-label">{item.label}</div>
-              <div className="stats-value">{item.value}</div>
+              <div className="stats-label">{item.label || ''}</div>
+              <div className="stats-value">{item.value || ''}</div>
             </div>
           ))}
         </div>
